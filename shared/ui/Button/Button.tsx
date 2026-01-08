@@ -1,21 +1,52 @@
 import React from "react";
-
-interface ButtonProps {
-    children: React.ReactNode;
-    variant?: 'solid' | 'bordered' | 'light' | 'flat' | 'faded' | 'shadow' | 'ghost';
-    color?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
-    size?: 'sm' | 'md' | 'lg';
-    radius?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
-    startContent?: React.ReactNode;
-    endContent?: React.ReactNode;
-    fullWidth?: boolean;
-    isLoading?: boolean;
-    isDisabled?: boolean;
-    onPress?: () => void;
-}
+import { Pressable, Text } from "react-native";
+import { ButtonProps } from "./button.types";
+import {
+    commonStyles,
+    sizeStyles,
+    radiusStyles,
+    getContainerStyle,
+    getTextStyle,
+} from "./button.styles";
 
 export const Button = ({
+                           children,
+                           variant = "default",
+                           color = "default",
+                           size = "md",
+                           radius = "md",
+                           isLoading = false,
+                           isDisabled = false,
+                           fullWidth = false,
+                           onPress,
+                           style,
+                       }: ButtonProps) => {
+    const disabled = isDisabled || isLoading;
 
-} : ButtonProps) => {
-
-}
+    return (
+        <Pressable
+            disabled={disabled}
+            onPress={onPress}
+            style={({ pressed }) => [
+                commonStyles.base,
+                sizeStyles[size],
+                radiusStyles[radius],
+                getContainerStyle(variant, color),
+                fullWidth && commonStyles.fullWidth,
+                disabled && commonStyles.disabled,
+                pressed && !disabled && commonStyles.pressed,
+                style,
+            ]}
+        >
+            <Text
+                style={[
+                    commonStyles.text,
+                    getTextStyle(variant, color),
+                    disabled && commonStyles.textDisabled,
+                ]}
+            >
+                {children}
+            </Text>
+        </Pressable>
+    );
+};
