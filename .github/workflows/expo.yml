@@ -1,4 +1,4 @@
-name: Expo CI (Build & Test)
+name: Build & Test
 
 on:
   pull_request:
