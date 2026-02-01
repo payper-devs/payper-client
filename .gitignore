@@ -25,3 +25,10 @@ dist-ssr
 
 *storybook.log
 storybook-static
+
+# Generated reports
+.reports
+
+# Claude Code local settings
+.claude/settings.json
+.claude/settings.local.json
