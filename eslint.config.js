@@ -8,7 +8,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
-export default defineConfig([globalIgnores(['dist']), {
+export default defineConfig([globalIgnores(['dist', 'public/mockServiceWorker.js']), {
   files: ['**/*.{ts,tsx}'],
   extends: [
     js.configs.recommended,
@@ -19,5 +19,11 @@ export default defineConfig([globalIgnores(['dist']), {
   languageOptions: {
     ecmaVersion: 2020,
     globals: globals.browser,
+  },
+}, {
+  // Allow non-component exports in shared UI library (shadcn/ui pattern)
+  files: ['src/shared/ui/**/*.{ts,tsx}'],
+  rules: {
+    'react-refresh/only-export-components': 'off',
   },
 }, ...storybook.configs["flat/recommended"]])
