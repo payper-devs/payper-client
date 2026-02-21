@@ -24,6 +24,19 @@ export default defineConfig({
     tailwindcss(),
   ],
   test: {
+    reporters: process.env.CI ? ["default", "junit"] : ["default"],
+    outputFile: { junit: "test-results/junit.xml" },
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "json", "json-summary", "lcov"],
+      reportsDirectory: "coverage",
+      include: ["src/**/*.{ts,tsx}"],
+      exclude: [
+        "src/**/*.stories.{ts,tsx}",
+        "src/mocks/**",
+        "src/shared/ui/**",
+      ],
+    },
     projects: [
       {
         extends: true,
