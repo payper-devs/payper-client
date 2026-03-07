@@ -5,6 +5,8 @@ React frontend for Payper payment platform.
 ## Tech Stack
 
 - React 19 + TypeScript 5.9 + Vite 7
+- TanStack Query v5 (서버 상태 관리)
+- React Router v7
 - Tailwind CSS 4 + Shadcn/ui (New York style)
 - MSW 2 for API mocking
 - Storybook 10 for component development
